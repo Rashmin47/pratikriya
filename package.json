@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.4.1",
+    "@clerk/react": "^6.7.1",
+    "@clerk/themes": "^2.4.57",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "class-variance-authority": "^0.7.1",
