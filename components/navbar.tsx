@@ -1,10 +1,14 @@
-import { Map, MessageSquare, Sparkle } from "lucide-react";
+"use client";
+
+import { Map, MessageSquare, Shield, Sparkle } from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
-import { Show, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignInButton, UserButton, useAuth } from "@clerk/react";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
+  const { isSignedIn } = useAuth();
+
   return (
     <nav className="border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -14,7 +18,7 @@ export default function Navbar() {
               <div className="h-8 w-8 rounded-lg bg-linear-to-r from-blue-500 to-purple-500 flex items-center justify-center">
                 <Sparkle className="h-4 w-4 text-white" />
               </div>
-              <span className="text-xl font-bold">Pratikriya</span>
+              <span className="text-xl font-bold">Feedback Fusion</span>
             </div>
           </Link>
           <Link
@@ -31,23 +35,29 @@ export default function Navbar() {
             <MessageSquare className="h-4 w-4" />
             Feedback
           </Link>
+          {/* Admin Link*/}
+          {isSignedIn && (
+            <Link
+              href="/admin"
+              className="text-sm hover:text-primary transition-colors flex items-center gap-1"
+            >
+              <Shield className="h-4 w-4" />
+              Admin
+            </Link>
+          )}
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <Show when="signed-out">
+          {!isSignedIn && (
             <SignInButton>
-              <Button>
+              <Button asChild>
                 <Link href="/sign-in">Sign In</Link>
-                Sign In
               </Button>
             </SignInButton>
-          </Show>
-          <Show when="signed-in">
-            <UserButton />
-          </Show>
+          )}
+          {isSignedIn && <UserButton />}
         </div>
       </div>
-      Navbar
     </nav>
   );
 }
