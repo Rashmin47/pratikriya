@@ -1,8 +1,7 @@
 import { Map, MessageSquare, Sparkle } from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
-import { SignInButton } from "@clerk/nextjs";
-import { SignedOut } from "@clerk/nextjs";
+import { Show, SignInButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
@@ -35,14 +34,14 @@ export default function Navbar() {
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <SignedOut>
+          <Show when="signed-out">
             <SignInButton>
-              <Button asChild>
+              <Button>
                 <Link href="/sign-in">Sign In</Link>
                 Sign In
               </Button>
             </SignInButton>
-          </SignedOut>
+          </Show>
         </div>
       </div>
       Navbar
