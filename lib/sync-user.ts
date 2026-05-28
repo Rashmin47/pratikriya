@@ -1,7 +1,9 @@
 import { currentUser } from "@clerk/nextjs/server";
 import prisma from "./prisma";
 
-export async function syncCurrentUser() {
+type DbUser = Awaited<ReturnType<typeof prisma.user.create>>;
+
+export async function syncCurrentUser(): Promise<DbUser | null> {
   try {
     // Get user data from clerk
     const clerkUser = await currentUser();
@@ -28,6 +30,7 @@ export async function syncCurrentUser() {
           image: clerkUser.imageUrl,
         },
       });
+      return dbUser;
     } else {
       const userCount = await prisma.user.count();
       const isFirstUser = userCount === 0;
@@ -42,7 +45,10 @@ export async function syncCurrentUser() {
         },
       });
       console.log(`New User created: ${email} with role: ${dbUser.role}`);
+      return dbUser;
     }
+
+    return dbUser;
   } catch (error) {
     console.log("Error syncing user from Clerk:", error);
 

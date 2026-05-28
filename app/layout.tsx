@@ -38,11 +38,11 @@ export default async function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
-            <Footer />
-            <Toaster />
             <main className="flex-1 container mx-auto px-4 py-8">
               {children}
             </main>
+            <Footer />
+            <Toaster richColors />
           </ThemeProvider>
         </body>
       </html>
