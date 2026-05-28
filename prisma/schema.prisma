@@ -1,3 +1,6 @@
+// prisma/schema.prisma
+// Define your database models
+
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -7,38 +10,45 @@ datasource db {
   provider = "postgresql"
 }
 
+// Example models
+
 model User {
-  id    Int     @id @default(autoincrement())
-  clerkUserId String @unique
-  email String  @unique
-  name  String?
-  image String
-  posts Post[]
-  votes Vote[]
-  role Role @default(user)
+  id                Int     @id @default(autoincrement())
+  clerkUserId       String  @unique
+  email             String  @unique
+  name              String?
+  image             String
+  posts             Post[]
+  votes             Vote[]
+  role              Role    @default(user)
+
   @@map("users")
 }
 
 model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  description   String?
-  category String
-  status PostStatus @default(under_review)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
-  votes Vote[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                    Int     @id @default(autoincrement())
+  title                 String
+  description           String?
+  category              String 
+  status                PostStatus  @default(under_review) 
+  author                User    @relation(fields: [authorId], references: [id])
+  authorId              Int
+  votes                 Vote[]
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+
   @@map("posts")
 }
 
 model Vote {
-    id Int @id @default(autoincrement())
-    user User @relation(fields: [userId], references: [id])
-    userId Int
-    post Post @relation(fields: [postId], references: [id])
-    postId Int
+    id              Int @id @default(autoincrement())
+    user            User @relation(fields: [userId], references: [id])
+    userId          Int
+    post            Post @relation(fields: [postId], references: [id])
+    postId          Int
+
+    @@unique([userId, postId])
+    @@map("votes")
 }
 
 enum Role {
@@ -52,3 +62,5 @@ enum PostStatus {
     in_progress
     completed
 }
+
+
