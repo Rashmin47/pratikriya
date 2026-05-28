@@ -35,44 +35,45 @@ export default async function FeedbackPage() {
   });
   return (
     <>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <GradientHeader
           title="Community Feedback"
           subtitle="Explore, vote, and contribute to the features that matter most. Your voice shapes our product's future."
         >
-          <div className="flex gap-4 justify-center pt-4">
+          <div className="flex flex-col justify-center gap-3 pt-4 sm:flex-row">
             <Button
               asChild
               size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100"
+              className="rounded-full bg-white text-blue-700 hover:bg-slate-100"
             >
               <Link href="/feedback/new">
-                <PlusIcon className="ml-2 h-4 w-4" />
                 New Feedback
+                <PlusIcon className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button
               asChild
               size="lg"
-              className="bg-white text-black hover:bg-gray-100"
+              variant="outline"
+              className="rounded-full border-white/25 bg-white/10 text-white hover:bg-white/15 hover:text-white"
             >
               <Link href="/roadmap">
-                <Map className="ml-2 h-4 w-4" />
                 View Roadmap
+                <Map className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
         </GradientHeader>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
           {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Categories</CardTitle>
+          <div className="space-y-6">
+            <Card className="border-border/70 bg-card/95 shadow-sm">
+              <CardHeader className="space-y-2 border-b border-border/60 bg-muted/20">
+                <CardTitle className="text-xl">Categories</CardTitle>
                 <CardDescription>Browse feedback by category</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="pt-5">
                 <div className="space-y-3">
                   {categories.map((cat) => {
                     const design = getCategoryDesign(cat.category);
@@ -81,21 +82,21 @@ export default async function FeedbackPage() {
                     return (
                       <div
                         key={cat.category}
-                        className="group flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                        className="group flex cursor-pointer items-center justify-between rounded-2xl border border-transparent p-3 transition-colors hover:border-border/70 hover:bg-muted/40"
                       >
                         <div className="flex items-center gap-3">
                           <div
-                            className={`p-2 rounded-lg ${design.light} ${design.border} border`}
+                            className={`rounded-xl border p-2.5 ${design.light} ${design.border}`}
                           >
-                            <Icon className={`h-4 w-4 ${design.text}`}></Icon>
+                            <Icon className={`h-4 w-4 ${design.text}`} />
                           </div>
-                          <span className="font-medium text-sm">
+                          <span className="text-sm font-medium">
                             {cat.category}
                           </span>
                         </div>
                         <Badge
                           variant="secondary"
-                          className={`${design.light} ${design.text}`}
+                          className={`rounded-full ${design.light} ${design.text}`}
                         >
                           {cat._count}
                         </Badge>
@@ -107,7 +108,7 @@ export default async function FeedbackPage() {
             </Card>
           </div>
           {/* Main Content */}
-          <div className="lg:col-span-3">
+          <div>
             <FeedbackList initialPosts={posts} userId={userId} />
           </div>
         </div>

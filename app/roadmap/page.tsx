@@ -87,71 +87,68 @@ export default async function RoadmapPage() {
   );
   const plannedPercentage = getStatusPercentage(postsWithVotes, "planned");
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <GradientHeader
         title="Product Roadmap"
-        subtitle="See what we're working on, what's coming next, and track our
-            progress"
+        subtitle="See what we're working on, what's coming next, and track progress in a roadmap that feels clear and alive."
       />
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="border-l-4 border-l-blue-500">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Features</p>
-                <p className="text-3xl font-bold">{postsWithVotes.length}</p>
-              </div>
-              <Target className="h-20 w-10 text-blue-500" />
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <Card className="overflow-hidden border-border/70 bg-card/95 shadow-sm">
+          <CardContent className="flex items-center justify-between pt-6">
+            <div>
+              <p className="text-sm text-muted-foreground">Total Features</p>
+              <p className="text-3xl font-semibold tracking-tight">
+                {postsWithVotes.length}
+              </p>
             </div>
+            <Target className="h-10 w-10 text-blue-500" />
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-purple-500">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Votes</p>
-                <p className="text-3xl font-bold">{totalVotes}</p>
-              </div>
-              <BarChart3 className="h-20 w-10 text-purple-500" />
+        <Card className="overflow-hidden border-border/70 bg-card/95 shadow-sm">
+          <CardContent className="flex items-center justify-between pt-6">
+            <div>
+              <p className="text-sm text-muted-foreground">Total Votes</p>
+              <p className="text-3xl font-semibold tracking-tight">
+                {totalVotes}
+              </p>
             </div>
+            <BarChart3 className="h-10 w-10 text-purple-500" />
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-green-500">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Completed</p>
-                <p className="text-3xl font-bold">
-                  {groupedPosts.completed.length}
-                </p>
-              </div>
-              <BarChart3 className="h-20 w-10 text-green-500" />
+        <Card className="overflow-hidden border-border/70 bg-card/95 shadow-sm">
+          <CardContent className="flex items-center justify-between pt-6">
+            <div>
+              <p className="text-sm text-muted-foreground">Completed</p>
+              <p className="text-3xl font-semibold tracking-tight">
+                {groupedPosts.completed.length}
+              </p>
             </div>
+            <BarChart3 className="h-10 w-10 text-green-500" />
           </CardContent>
         </Card>
-        <Card className="border-l-4 border-l-yellow-500">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Average Votes</p>
-                <p className="text-3xl font-bold">{averageVotes}</p>
-              </div>
-              <BarChart3 className="h-20 w-10 text-yellow-500" />
+        <Card className="overflow-hidden border-border/70 bg-card/95 shadow-sm">
+          <CardContent className="flex items-center justify-between pt-6">
+            <div>
+              <p className="text-sm text-muted-foreground">Average Votes</p>
+              <p className="text-3xl font-semibold tracking-tight">
+                {averageVotes}
+              </p>
             </div>
+            <BarChart3 className="h-10 w-10 text-yellow-500" />
           </CardContent>
         </Card>
       </div>
       {/* Overall Progress */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Roadmap Progress</CardTitle>
-          <CardDescription>
+      <Card className="overflow-hidden border-border/70 bg-card/95 shadow-sm">
+        <CardHeader className="space-y-2 border-b border-border/60 bg-muted/20">
+          <CardTitle className="text-2xl">Roadmap Progress</CardTitle>
+          <CardDescription className="max-w-2xl">
             Track the journey from idea to completion
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 pt-6">
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span>Overall Completion</span>
@@ -182,7 +179,7 @@ export default async function RoadmapPage() {
         </CardContent>
       </Card>
       {/* Roadmap Columns */}
-      <div className="lg:grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
         {STATUS_ORDER.map((status) => {
           const group = STATUS_GROUPS[status as keyof typeof STATUS_GROUPS];
           const Icon = group.icon;
@@ -192,16 +189,21 @@ export default async function RoadmapPage() {
           return (
             <div key={status} className="space-y-4">
               <div
-                className={`rounded-lg p-4 ${group.bgColor} border ${group.color}`}
+                className={`rounded-2xl border p-4 shadow-sm ${group.bgColor} ${group.color}`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <Icon className={`h-5 w-5 ${group.textColor}`} />
-                    <h2 className={`text-lg font-semibold ${group.textColor}`}>
+                    <h2
+                      className={`text-lg font-semibold tracking-tight ${group.textColor}`}
+                    >
                       {group.title}
                     </h2>
                   </div>
-                  <Badge variant="secondary" className={group.countColor}>
+                  <Badge
+                    variant="secondary"
+                    className={`rounded-full ${group.countColor}`}
+                  >
                     {postsInGroup.length}
                   </Badge>
                 </div>
@@ -213,13 +215,13 @@ export default async function RoadmapPage() {
                 {postsInGroup.map((post) => (
                   <Card
                     key={post.id}
-                    className={`border-l-4 ${group.color} hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer`}
+                    className={`cursor-pointer border-l-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${group.color}`}
                   >
                     <CardHeader className="pb-3">
-                      <CardTitle className="text-sm font-medium">
+                      <CardTitle className="text-sm font-medium tracking-tight">
                         {post.title}
                       </CardTitle>
-                      <CardDescription>
+                      <CardDescription className="text-sm">
                         {post.author.name} | {post.votes.length} votes
                       </CardDescription>
                     </CardHeader>

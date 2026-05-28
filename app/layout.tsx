@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Toaster } from "sonner";
@@ -10,6 +10,11 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { syncCurrentUser } from "@/lib/sync-user";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
   title: "Pratikriya - Express your opinions",
@@ -28,7 +33,7 @@ export default async function RootLayout({
       <html
         lang="en"
         suppressHydrationWarning
-        className={`${inter.className} min-h-screen flex flex-col`}
+        className={`${inter.className} ${cormorant.variable} min-h-screen flex flex-col`}
       >
         <body className="min-h-full flex flex-col">
           <ThemeProvider

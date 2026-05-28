@@ -29,10 +29,10 @@ export default async function AdminPage() {
     },
   });
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto space-y-8">
       <GradientHeader
         title="Admin Dashboard"
-        subtitle="Manage feedbacks and update their status"
+        subtitle="Manage feedback, update statuses, and keep the roadmap organized from a single place."
       />
       <AdminFeedbackTable posts={posts} />
     </div>

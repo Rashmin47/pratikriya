@@ -10,6 +10,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -81,49 +88,55 @@ export default function NewFeedbackPage() {
     }
   }, [state.success, router]);
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon" asChild>
+    <div className="mx-auto max-w-3xl space-y-8">
+      <div className="flex items-center gap-3">
+        <Button variant="ghost" size="icon" asChild className="rounded-full">
           <Link href="/feedback">
             <ArrowLeft className="h-4 w-4" />
           </Link>
         </Button>
-        <h1 className="text-3xl font-bold"> Share your feedback</h1>
+        <div className="space-y-1">
+          <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+            Feedback intake
+          </p>
+          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+            Share your feedback
+          </h1>
+        </div>
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>New Feedback</CardTitle>
-          <CardDescription>
+      <Card className="overflow-hidden border-border/70 bg-card/95 shadow-sm">
+        <CardHeader className="space-y-3 border-b border-border/60 bg-muted/20">
+          <CardTitle className="text-2xl">New Feedback</CardTitle>
+          <CardDescription className="max-w-2xl text-base leading-7">
             Share your idea with the community. Be specific about what
-            you&apos;d like to see.
+            you&apos;d like to see so the team can understand the need clearly.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           <form action={action} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
               <Input
                 id="title"
                 name="title"
-                placeholder="What would you like to see ?"
+                placeholder="What would you like to see?"
                 required
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="category">Category</Label>
-              <select
-                id="category"
-                name="category"
-                className="w-full px-3 py-2 border rounded-md bg-background"
-                defaultValue={CATEGORIES_TYPES[0]}
-              >
-                {CATEGORIES_TYPES.map((category) => (
-                  <option key={category} value={category}>
-                    {" "}
-                    {category}
-                  </option>
-                ))}
-              </select>
+              <Select defaultValue={CATEGORIES_TYPES[0]} name="category">
+                <SelectTrigger id="category" className="w-full">
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {CATEGORIES_TYPES.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
@@ -131,15 +144,25 @@ export default function NewFeedbackPage() {
                 id="description"
                 name="description"
                 placeholder="Describe your idea in detail..."
+                className="min-h-40"
                 required
               />
             </div>
-            <div className="flex gap-4">
-              <Button type="submit" disabled={isPending}>
-                {isPending ? "Submitting" : "Submit Feedback"}
-              </Button>
-              <Button type="button" variant="outline" asChild>
+            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                asChild
+                className="rounded-full"
+              >
                 <Link href="/feedback">Cancel</Link>
+              </Button>
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="rounded-full px-6"
+              >
+                {isPending ? "Submitting" : "Submit Feedback"}
               </Button>
             </div>
           </form>

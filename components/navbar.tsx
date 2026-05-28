@@ -10,27 +10,29 @@ export default function Navbar() {
   const { isSignedIn } = useAuth();
 
   return (
-    <nav className="border-b bg-background">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <div className="flex items-center gap-6">
-          <Link href="/">
-            <div className="flex items-center gap-2">
-              <div className="h-8 w-8 rounded-lg bg-linear-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+    <nav className="sticky top-0 z-50 border-b border-stone-400/20 bg-background/75 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70">
+      <div className="container mx-auto flex h-18 items-center justify-between px-4">
+        <div className="flex items-center gap-4 sm:gap-6">
+          <Link href="/" className="shrink-0">
+            <div className="flex items-center gap-3 rounded-full border border-stone-400/20 bg-background/80 px-3 py-2 shadow-sm transition-colors hover:bg-muted/60">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-r from-amber-700 via-stone-700 to-emerald-700 shadow-lg shadow-stone-500/20">
                 <Sparkle className="h-4 w-4 text-white" />
               </div>
-              <span className="text-xl font-bold">Feedback Fusion</span>
+              <span className="font-display text-base font-semibold tracking-tight sm:text-lg">
+                Pratikriya
+              </span>
             </div>
           </Link>
           <Link
             href="/roadmap"
-            className="text-sm hover:text-primary flex items-center gap-1"
+            className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground md:flex"
           >
             <Map className="h-4 w-4" />
             Roadmap
           </Link>
           <Link
             href="/feedback"
-            className="text-sm hover:text-primary flex items-center gap-1"
+            className="hidden items-center gap-2 rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground md:flex"
           >
             <MessageSquare className="h-4 w-4" />
             Feedback
@@ -39,7 +41,7 @@ export default function Navbar() {
           {isSignedIn && (
             <Link
               href="/admin"
-              className="text-sm hover:text-primary transition-colors flex items-center gap-1"
+              className="hidden items-center gap-2 rounded-full bg-muted/70 px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted md:flex"
             >
               <Shield className="h-4 w-4" />
               Admin
@@ -50,7 +52,7 @@ export default function Navbar() {
           <ThemeToggle />
           {!isSignedIn && (
             <SignInButton>
-              <Button asChild>
+              <Button asChild size="sm" className="rounded-full px-5">
                 <Link href="/sign-in">Sign In</Link>
               </Button>
             </SignInButton>

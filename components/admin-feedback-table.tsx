@@ -91,9 +91,11 @@ export default function AdminFeedbackTable({ posts }: { posts: any[] }) {
     return <Icon className="h-3 w-3 mr-1" />;
   };
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Manage Feedback</CardTitle>
+    <Card className="overflow-hidden border-border/70 bg-card/95 shadow-sm">
+      <CardHeader className="space-y-2 border-b border-border/60 bg-muted/30">
+        <CardTitle className="text-2xl tracking-tight">
+          Manage Feedback
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
@@ -115,8 +117,8 @@ export default function AdminFeedbackTable({ posts }: { posts: any[] }) {
               const CategoryIcon = categoryDesign.icon;
 
               return (
-                <TableRow key={post.id} className="h-[70px]">
-                  <TableCell className="font-medium max-w-xs truncate align-middle">
+                <TableRow key={post.id} className="h-16">
+                  <TableCell className="max-w-xs truncate align-middle font-medium">
                     {post.title}
                   </TableCell>
                   <TableCell className="align-middle">
@@ -129,15 +131,15 @@ export default function AdminFeedbackTable({ posts }: { posts: any[] }) {
                     </Badge>
                   </TableCell>
                   <TableCell className="align-middle">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-muted-foreground">
                       <ThumbsUp className="h-3 w-3" />
                       {post.votes.length}
                     </div>
                   </TableCell>
                   <TableCell className="align-middle">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-muted-foreground">
                       <User className="h-3 w-3" />
-                      <span className="truncate max-w-[100px]">
+                      <span className="max-w-24 truncate">
                         {post.author.name}
                       </span>
                     </div>
@@ -151,17 +153,14 @@ export default function AdminFeedbackTable({ posts }: { posts: any[] }) {
                             handleStatusChange(post.id, value)
                           }
                         >
-                          <SelectTrigger className="w-[140px]">
-                            <SelectValue>
-                              <div className="flex items-center">
-                                {getStatusIcon(currentStatus)}
-                                {
-                                  STATUS_GROUPS[
-                                    currentStatus as keyof typeof STATUS_GROUPS
-                                  ]?.title
-                                }
-                              </div>
-                            </SelectValue>
+                          <SelectTrigger className="w-36 rounded-full">
+                            <SelectValue
+                              placeholder={
+                                STATUS_GROUPS[
+                                  currentStatus as keyof typeof STATUS_GROUPS
+                                ]?.title
+                              }
+                            />
                           </SelectTrigger>
                           <SelectContent>
                             {STATUS_ORDER.map((status) => {
@@ -202,11 +201,11 @@ export default function AdminFeedbackTable({ posts }: { posts: any[] }) {
                   </TableCell>
                   <TableCell className="align-middle">
                     {isEditing ? (
-                      <>
+                      <div className="flex items-center gap-2">
                         <Button
                           size="sm"
                           onClick={() => saveStatus(post.id)}
-                          className="gap-1 h-8"
+                          className="h-8 gap-1 rounded-full"
                         >
                           <Save className="h-3 w-3" />
                           Save
@@ -215,23 +214,21 @@ export default function AdminFeedbackTable({ posts }: { posts: any[] }) {
                           variant="ghost"
                           size="sm"
                           onClick={() => cancelEditing(post.id)}
-                          className="gap-1 h-8"
+                          className="h-8 gap-1 rounded-full"
                         >
                           <X className="h-3 w-3" />
                         </Button>
-                      </>
+                      </div>
                     ) : (
-                      <>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => startEditing(post.id)}
-                          className="gap-1 h-8"
-                        >
-                          <Edit className="h-3 w-3" />
-                          Edit
-                        </Button>
-                      </>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => startEditing(post.id)}
+                        className="h-8 gap-1 rounded-full"
+                      >
+                        <Edit className="h-3 w-3" />
+                        Edit
+                      </Button>
                     )}
                   </TableCell>
                 </TableRow>

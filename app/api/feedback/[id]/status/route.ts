@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: Promise<{ id: number }> },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { userId } = await auth();
@@ -29,12 +29,13 @@ export async function PATCH(
     }
     const { status } = await request.json();
     const { id: postId } = await params;
+    const numericPostId = Number(postId);
     // Validate status
     if (!STATUS_ORDER.includes(status)) {
       return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
     const updatedPost = await prisma.post.update({
-      where: { id: postId },
+      where: { id: numericPostId },
       data: {
         status,
       },
