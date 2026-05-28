@@ -1,7 +1,7 @@
 import { Map, MessageSquare, Sparkle } from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
-import { Show, SignInButton } from "@clerk/nextjs";
+import { Show, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
@@ -41,6 +41,9 @@ export default function Navbar() {
                 Sign In
               </Button>
             </SignInButton>
+          </Show>
+          <Show when="signed-in">
+            <UserButton />
           </Show>
         </div>
       </div>

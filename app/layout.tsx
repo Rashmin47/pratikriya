@@ -7,6 +7,7 @@ import Footer from "@/components/footer";
 import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
+import { syncCurrentUser } from "@/lib/sync-user";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -16,11 +17,12 @@ export const metadata: Metadata = {
     "A platform for users to suggest and vote on opinions and discussions",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await syncCurrentUser();
   return (
     <ClerkProvider>
       <html
